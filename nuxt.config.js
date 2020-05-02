@@ -64,6 +64,9 @@ export default {
    */
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
+    icons: {
+      iconfont: 'mdi'
+    },
     theme: {
       dark: false,
       themes: {
