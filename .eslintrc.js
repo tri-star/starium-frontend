@@ -16,5 +16,17 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
+    'vue/max-attributes-per-line': 'off',
+    'vue/html-self-closing': ['error', {
+      'html': {
+        'void': 'always'
+      }
+    }],
+    'prettier/prettier': [
+      'error', {
+        'semi': false,
+        'singleQuote': true
+      }
+    ]
   }
 }
