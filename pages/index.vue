@@ -30,7 +30,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import ServiceStatusItem from '../components/ServiceStatusItem.vue'
+import ServiceStatusItem from '@/components/ServiceStatusItem.vue'
 import ServiceStatus from '@/domains/ServiceStatus'
 
 export default Vue.extend({
@@ -40,18 +40,16 @@ export default Vue.extend({
   data() {
     return {
       lastUpdated: new Date(),
-      services: [
-        {
-          name: 'Web',
-          status: ServiceStatus.STATUS_OK
-        },
-        {
-          name: 'Images',
-          status: ServiceStatus.STATUS_ERROR
-        }
-      ]
+      services: [] as Array<ServiceStatus>
+    }
+  },
+
+  async asyncData(context) {
+    return {
+      services: await context.app.$serviceStatusAdapter.fetch()
     }
   }
+
 })
 </script>
 

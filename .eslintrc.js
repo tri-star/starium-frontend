@@ -27,6 +27,8 @@ module.exports = {
         'semi': false,
         'singleQuote': true
       }
-    ]
+    ],
+    "@typescript-eslint/no-unused-vars": ["error", { "vars": "all", "args": "off", "ignoreRestSiblings": true }],
+    'no-unused-expressions': 'off'
   }
 }

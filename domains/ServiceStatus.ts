@@ -9,22 +9,34 @@ export default class ServiceStatus {
   /**
    * サービス名
    */
-  protected name: string
+  protected name!: string
 
   /**
    * サービス状態コード(STATUS_XXX)
    */
-  protected status: string
+  protected status!: string
 
   /**
    * エラーの詳細情報
    * @var [string]
    */
-  protected errorDetail: string
+  protected errorDetail!: string
 
-  constructor() {
-    this.name = ''
-    this.status = ServiceStatus.STATUS_UNKNOWN
-    this.errorDetail = ''
+  constructor(
+    name: string,
+    status: string = ServiceStatus.STATUS_UNKNOWN,
+    errorDetail: string = ''
+  ) {
+    this.name = name
+    this.status = status
+    this.errorDetail = errorDetail
+  }
+
+  public static fromJSON(json: any): ServiceStatus {
+    return new ServiceStatus(
+      json.name ?? '',
+      json.status ?? ServiceStatus.STATUS_UNKNOWN,
+      json.error_detail ?? ''
+    )
   }
 }
