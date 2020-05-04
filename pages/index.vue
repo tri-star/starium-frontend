@@ -14,7 +14,7 @@
       <v-col cols="10" offset="1" xl="8" offset-xl="2">
         <v-card>
           <v-card-title>Service Status</v-card-title>
-          <div class="last-updated">Last Updated: {{ lastUpdated }}</div>
+          <div class="last-updated">Last Updated: {{ formattedLastUpdated }}</div>
           <div class="service-status">
             <ServiceStatusItem
               v-for="service of services"
@@ -32,11 +32,13 @@
 import Vue from 'vue'
 import ServiceStatusItem from '@/components/ServiceStatusItem.vue'
 import ServiceStatus from '@/domains/ServiceStatus'
+import dayjs from 'dayjs'
 
 export default Vue.extend({
   components: {
     ServiceStatusItem
   },
+
   data() {
     return {
       lastUpdated: new Date(),
@@ -49,6 +51,15 @@ export default Vue.extend({
     return {
       lastUpdated: result.lastUpdated,
       services: result.services
+    }
+  },
+
+  computed: {
+    formattedLastUpdated() {
+      if(!this.$data.lastUpdated) {
+        return ''
+      }
+      return dayjs(this.$data.lastUpdated).format('YYYY-MM-DD HH:mm:ss Z')
     }
   }
 
