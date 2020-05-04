@@ -1,22 +1,36 @@
 # starium-frontend
 
-> starium-frontend project.
+![release](http://img.shields.io/github/release/tri-star/starium-frontend.svg?style=flat-square)
+![license](http://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
 
-## Build Setup
+## Overview
 
-```bash
-# install dependencies
-$ yarn install
+Starium is a tool that allows you to publish the status of a particular service.  
+The goal is to be able to operate without having a dedicated server.
 
-# serve with hot reload at localhost:3000
-$ yarn dev
+Image:
+![preview](./docs/images/starium-image.png)
 
-# build for production and launch server
-$ yarn build
-$ yarn start
+## Usage
 
-# generate static project
-$ yarn generate
-```
+WIP.
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+## Install
+
+WIP.
+
+## Road map
+
+WIP.
+
+## Contribution
+
+WIP.
+
+## Licence
+
+[MIT](https://github.com/tri-star/starium-frontend/blob/master/LICENSE)
+
+## Author
+
+[tri-star](https://github.com/tri-star)
