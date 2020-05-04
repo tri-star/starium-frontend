@@ -43,4 +43,8 @@ export default class ServiceStatus {
   public getName(): string {
     return this.name
   }
+
+  public getStatus(): string {
+    return this.status
+  }
 }

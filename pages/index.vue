@@ -2,12 +2,7 @@
   <v-container column justify-center align-center>
     <v-row>
       <v-col cols="10" offset="1" xl="8" offset-xl="2">
-        <v-sheet height="60" elevation="2" color="green" class="text-center">
-          <div class="status">
-            <v-icon color="white mr-5">mdi-check</v-icon>
-            <div class="status-text">Healthy</div>
-          </div>
-        </v-sheet>
+        <StatusHeader :status="globalStatus"/>
       </v-col>
     </v-row>
     <v-row>
@@ -32,11 +27,13 @@
 import Vue from 'vue'
 import ServiceStatusItem from '@/components/ServiceStatusItem.vue'
 import ServiceStatus from '@/domains/ServiceStatus'
+import StatusHeader from '@/components/StatusHeader.vue'
 import dayjs from 'dayjs'
 
 export default Vue.extend({
   components: {
-    ServiceStatusItem
+    ServiceStatusItem,
+    StatusHeader
   },
 
   data() {
@@ -60,6 +57,23 @@ export default Vue.extend({
         return ''
       }
       return dayjs(this.$data.lastUpdated).format('YYYY-MM-DD HH:mm:ss Z')
+    },
+    globalStatus() {
+      if(!this.services) {
+        return ServiceStatus.STATUS_UNKNOWN
+      }
+      const services: Array<ServiceStatus> = this.$data.services
+      const globalStatus = services.map(item => item.getStatus()).reduce((carry, current) => {
+        if(carry !== ServiceStatus.STATUS_OK) {
+          return ServiceStatus.STATUS_ERROR
+        }
+        if(current !== ServiceStatus.STATUS_OK) {
+          return ServiceStatus.STATUS_ERROR
+        }
+        return ServiceStatus.STATUS_OK
+      }, ServiceStatus.STATUS_OK);
+
+      return globalStatus
     }
   }
 
@@ -67,16 +81,6 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-.status {
-  height: 60px;
-  line-height: 60px;
-  font-size: 24px;
-  color: white;
-
-  .status-text {
-    display: inline-block;
-  }
-}
 
 .last-updated {
   padding: 0 16px;
