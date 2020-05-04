@@ -39,4 +39,8 @@ export default class ServiceStatus {
       json.error_detail ?? ''
     )
   }
+
+  public getName(): string {
+    return this.name
+  }
 }

@@ -18,7 +18,7 @@
           <div class="service-status">
             <ServiceStatusItem
               v-for="service of services"
-              :key="service.name"
+              :key="service.getName()"
               :service-status="service"
             />
           </div>
@@ -45,8 +45,10 @@ export default Vue.extend({
   },
 
   async asyncData(context) {
+    const result = await context.app.$serviceStatusAdapter.fetch()
     return {
-      services: await context.app.$serviceStatusAdapter.fetch()
+      lastUpdated: result.lastUpdated,
+      services: result.services
     }
   }
 
