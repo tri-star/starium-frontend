@@ -66,7 +66,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<Vue, Data, Method, Compu
 
   computed: {
     formattedLastUpdated(): string{
-      if(!this.services) {
+      if(!this.lastUpdated) {
         return ''
       }
       return dayjs(this.lastUpdated).format('YYYY-MM-DD HH:mm:ss Z')
