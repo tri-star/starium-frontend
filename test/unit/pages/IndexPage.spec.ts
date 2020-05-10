@@ -7,6 +7,16 @@ const localVue = createLocalVue()
 
 describe('IndexPage', () => {
 
+  const createWrapper = (lastUpdated: Date, services: Array<ServiceStatus>) => {
+    return mount(IndexPage, {
+      localVue,
+      propsData: {
+        lastUpdated,
+        services
+      }
+    })
+  }
+
   describe('Last updated', () => {
 
     const datePatterns = [
@@ -19,13 +29,7 @@ describe('IndexPage', () => {
 
     datePatterns.forEach((pattern: any) => {
       test(`${pattern.name}`, () => {
-        const wrapper = mount(IndexPage, {
-          localVue,
-          propsData: {
-            lastUpdated: pattern.date,
-            services: []
-          }
-        })
+        const wrapper = createWrapper(pattern.date, [])
         expect(wrapper.find('.last-updated').text()).toBe(pattern.expected)
       })
 
@@ -36,27 +40,15 @@ describe('IndexPage', () => {
   describe('Service list', () => {
 
       test('No data', () => {
-        const wrapper = mount(IndexPage, {
-          localVue,
-          propsData: {
-            lastUpdated: new Date(),
-            services: []
-          }
-        })
+        const wrapper = createWrapper(new Date(), [])
         expect(wrapper.findAll('.service-status-item').exists()).toBeFalsy()
       })
 
       test('Operational', () => {
         const status = new ServiceStatus('Some', ServiceStatus.STATUS_OK)
-        const wrapper = mount(IndexPage, {
-          localVue,
-          propsData: {
-            lastUpdated: new Date(),
-            services: [
-              status
-            ]
-          }
-        })
+        const wrapper = createWrapper(new Date(), [
+          status
+        ])
         expect(wrapper.find('.service-status-item [data-test="service-name"]').text()).toBe(status.getName())
         expect(wrapper.find('.service-status-item').element.classList.contains('service-status-item-ok')).toBeTruthy()
         expect(wrapper.find('.service-status-item [data-test="service-status"]').text()).toBe('Operational')
@@ -64,15 +56,9 @@ describe('IndexPage', () => {
 
       test('Error', () => {
         const status = new ServiceStatus('Some2', ServiceStatus.STATUS_ERROR)
-        const wrapper = mount(IndexPage, {
-          localVue,
-          propsData: {
-            lastUpdated: new Date(),
-            services: [
-              status
-            ]
-          }
-        })
+        const wrapper = createWrapper(new Date(), [
+          status
+        ])
         expect(wrapper.find('.service-status-item [data-test="service-name"]').text()).toBe(status.getName())
         expect(wrapper.find('.service-status-item').element.classList.contains('service-status-item-error')).toBeTruthy()
         expect(wrapper.find('.service-status-item [data-test="service-status"]').text()).toBe('Error detected')
