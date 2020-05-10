@@ -20,12 +20,25 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-row>
+      <v-col cols="10" offset="1" xl="8" offset-xl="2">
+        <v-card data-test="information-card">
+          <v-card-title>Information</v-card-title>
+          <div class="informations">
+            <InformationItem v-for="(information, i) in informations" :key="i" :information="information" />
+          </div>
+        </v-card>
+      </v-col>
+    </v-row>
+
   </v-container>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
+import Information from '@/domains/Information'
+import InformationItem from '@/components/InformationItem.vue'
 import ServiceStatusItem from '@/components/ServiceStatusItem.vue'
 import ServiceStatus from '@/domains/ServiceStatus'
 import StatusHeader from '@/components/StatusHeader.vue'
@@ -44,11 +57,13 @@ type Computed = {
 
 type Props = {
   lastUpdated: Date,
-  services: Array<ServiceStatus>
+  services: Array<ServiceStatus>,
+  informations: Array<Information>
 }
 
 const options: ThisTypedComponentOptionsWithRecordProps<Vue, Data, Method, Computed, Props> = {
   components: {
+    InformationItem,
     ServiceStatusItem,
     StatusHeader
   },
@@ -60,6 +75,10 @@ const options: ThisTypedComponentOptionsWithRecordProps<Vue, Data, Method, Compu
     },
     services: {
       type: Array as Vue.PropType<Array<ServiceStatus>>,
+      required: true
+    },
+    informations: {
+      type: Array,
       required: true
     }
   },
@@ -102,6 +121,10 @@ export default Vue.extend(options)
 }
 
 .service-status {
+  padding: 16px;
+}
+
+.informations {
   padding: 16px;
 }
 
