@@ -13,6 +13,7 @@ export default {
     CORPORATION_NAME: process.env.CORPORATION_NAME || '',
     API_HOST_PREFIX: process.env.API_HOST_PREFIX || 'http://127.0.0.1:3000',
     API_SERVICE_STATUS_PATH: process.env.API_SERVICE_STATUS_PATH || '/dummy-starium.json',
+    API_INFORMATION_PATH: process.env.API_INFORMATION_PATH || '/dummy-information.json',
   },
 
   /*

@@ -6,6 +6,7 @@
 import Vue from 'vue'
 import IndexPage from './IndexPage.vue'
 import ServiceStatus from '@/domains/ServiceStatus'
+import Information from '@/domains/Information'
 
 export default Vue.extend({
   components: {
@@ -16,16 +17,14 @@ export default Vue.extend({
     return {
       lastUpdated: new Date(),
       services: [] as Array<ServiceStatus>,
-      informations: [] as Array<any>
+      informations: [] as Array<Information>
     }
   },
 
   async asyncData(context) {
     const result = await context.app.$serviceStatusAdapter.fetch()
 
-    const informations: Array<any> = [
-      {date: new Date('2020-05-01'), title: 'test', message: 'message body.'},
-    ]
+    const informations = await context.app.$informationAdapter.fetch()
 
     return {
       lastUpdated: result.lastUpdated,
