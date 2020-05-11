@@ -53,11 +53,12 @@ export default Vue.extend(options)
 .information-item {
   padding-top: 10px;
   margin-bottom: 15px;
-  border-top: 1px dashed rgba(0,0,0,0.3);
 }
 
 .information-title {
   font-size: 24px;
+  border-bottom: 1px dashed rgba(0,0,0,0.3);
+  margin-bottom: 5px;
 }
 
 .information-date {
