@@ -1,5 +1,5 @@
 <template>
-  <v-sheet data-test="information-item" class="information-item">
+  <v-sheet :data-test="`information-item-${information.id}`" class="information-item">
     <h3 data-test="information-title" class="information-title">{{ information.title }}</h3>
     <div data-test="information-date" class="information-date">{{ formattedDate }}</div>
     <div data-test="information-message" class="information-message">message body.</div>

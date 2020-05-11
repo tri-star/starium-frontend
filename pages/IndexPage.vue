@@ -25,7 +25,7 @@
         <v-card data-test="information-card">
           <v-card-title>Information</v-card-title>
           <div class="informations">
-            <InformationItem v-for="(information, i) in informations" :key="i" :information="information" />
+            <InformationItem v-for="information in informations" :key="information.id" :information="information" />
           </div>
         </v-card>
       </v-col>
