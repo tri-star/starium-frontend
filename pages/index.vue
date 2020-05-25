@@ -1,93 +1,40 @@
 <template>
-  <v-container column justify-center align-center>
-    <v-row>
-      <v-col cols="10" offset="1" xl="8" offset-xl="2">
-        <StatusHeader :status="globalStatus"/>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="10" offset="1" xl="8" offset-xl="2">
-        <v-card>
-          <v-card-title>Service Status</v-card-title>
-          <div class="last-updated">Last Updated: {{ formattedLastUpdated }}</div>
-          <div class="service-status">
-            <ServiceStatusItem
-              v-for="service of services"
-              :key="service.getName()"
-              :service-status="service"
-            />
-          </div>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+  <IndexPage :lastUpdated="lastUpdated" :services="services" :informations="informations" />
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import ServiceStatusItem from '@/components/ServiceStatusItem.vue'
+import IndexPage from './IndexPage.vue'
 import ServiceStatus from '@/domains/ServiceStatus'
-import StatusHeader from '@/components/StatusHeader.vue'
-import dayjs from 'dayjs'
+import Information from '@/domains/Information'
 
 export default Vue.extend({
   components: {
-    ServiceStatusItem,
-    StatusHeader
+    IndexPage
   },
 
   data() {
     return {
       lastUpdated: new Date(),
-      services: [] as Array<ServiceStatus>
+      services: [] as Array<ServiceStatus>,
+      informations: [] as Array<Information>
     }
   },
 
   async asyncData(context) {
     const result = await context.app.$serviceStatusAdapter.fetch()
+
+    const informations = await context.app.$informationAdapter.fetch()
+
     return {
       lastUpdated: result.lastUpdated,
-      services: result.services
+      services: result.services,
+      informations
     }
   },
-
-  computed: {
-    formattedLastUpdated() {
-      if(!this.$data.lastUpdated) {
-        return ''
-      }
-      return dayjs(this.$data.lastUpdated).format('YYYY-MM-DD HH:mm:ss Z')
-    },
-    globalStatus() {
-      if(!this.services) {
-        return ServiceStatus.STATUS_UNKNOWN
-      }
-      const services: Array<ServiceStatus> = this.$data.services
-      const globalStatus = services.map(item => item.getStatus()).reduce((carry, current) => {
-        if(carry !== ServiceStatus.STATUS_OK) {
-          return ServiceStatus.STATUS_ERROR
-        }
-        if(current !== ServiceStatus.STATUS_OK) {
-          return ServiceStatus.STATUS_ERROR
-        }
-        return ServiceStatus.STATUS_OK
-      }, ServiceStatus.STATUS_OK);
-
-      return globalStatus
-    }
-  }
 
 })
 </script>
 
 <style lang="scss" scoped>
-
-.last-updated {
-  padding: 0 16px;
-  font-size: 12px;
-}
-
-.service-status {
-  padding: 16px;
-}
 </style>

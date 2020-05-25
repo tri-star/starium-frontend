@@ -1,0 +1,4 @@
+[
+  {"id": "2020-05-01-01", "date": "2020-05-01 00:00:00 +09:00", "title": "test title1", "message": "Test message 1."},
+  {"id": "2020-04-30-01", "date": "2020-04-30 00:00:00 +09:00", "title": "test title2", "message": "Test message 2."}
+]

@@ -3,10 +3,10 @@
     :color="sheetBackgroundColor"
     :class="['service-status-item', sheetClassName, 'd-flex', 'md4']"
   >
-    <div>{{ serviceStatus.name }}</div>
+    <div data-test="service-name">{{ serviceStatus.name }}</div>
     <v-spacer />
     <v-icon>{{ statusIcon }}</v-icon>
-    <div>{{ statusText }}</div>
+    <div data-test="service-status">{{ statusText }}</div>
   </v-sheet>
 </template>
 
