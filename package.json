@@ -20,7 +20,7 @@
     "nuxt": "^2.0.0"
   },
   "devDependencies": {
-    "@mdi/font": "^5.1.45",
+    "@mdi/font": "^5.8.55",
     "@nuxt/typescript-build": "^1.0.3",
     "@nuxtjs/eslint-config-typescript": "^3.0.0",
     "@nuxtjs/eslint-module": "^2.0.0",
